@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Boat Sales - Boat Sales</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .nav-container {
+            background: #6082B6; 
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            padding: 0 1rem;
+        }
+
+        .nav-left {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 1rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid white;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background: white;
+            color: black;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 100px; 
+            padding: 20px;
+        }
+
+        h2 {
+            margin-top: 1rem;
+            font-size: 2rem; 
+            color: #2F539B; 
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .form-row {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            margin: 10px 0; 
+        }
+
+        label, input {
+            margin: 5px 0;
+        }
+
+        input {
+            flex: 1;
+            margin-right: 10px;
+            padding: 10px; 
+            font-size: 1rem; 
+        }
+
+        .form-row input:last-child {
+            margin-right: 0;
+        }
+
+        .crud-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .crud-buttons button {
+            margin: 5px;
+            padding: 10px 20px; 
+            font-size: 1rem; 
+        }
+
+        #boatsList {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .edit-btn, .delete-btn {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-container">
+        <div class="nav-left">Boat Paradise</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutus.html">About US</a></li>
+                <li><a href="crud.html">Manage Sales</a></li>
+                <li><a href="analytics.html">Analysis</a></li>
+            </ul>
+        </nav>
+    </div>
+    <main>
+        <h2>Manage Boat Sales</h2>
+        <form id="boatForm">
+            <div class="form-row">
+                <input type="text" id="boatName" name="boatName" placeholder="Boat Name">
+                <input type="text" id="boatType" name="boatType" placeholder="Boat Type">
+                <input type="number" id="boatPrice" name="boatPrice" placeholder="Price">
+            </div>
+            <div class="form-row">
+                <input type="number" id="boatDays" name="boatDays" placeholder="Number of Days">
+                <input type="date" id="saleDate" name="saleDate" placeholder="Sale Date">
+                <input type="text" id="boatLocation" name="boatLocation" placeholder="Location">
+            </div>
+            <div class="crud-buttons">
+                <button type="button" onclick="createBoat()">Add Boat</button>
+                <button type="button" onclick="readBoats()">View Boats</button>
+                <button type="button" onclick="updateBoat()">Update Boat</button>
+                <button type="button" onclick="deleteBoat()">Delete Boat</button>
+            </div>
+        </form>
+        <div id="boatsList"></div>
+    </main>
+    <script src="crud.js"></script>
+</body>
+</html>

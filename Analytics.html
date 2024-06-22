@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analytics - Boat Sales</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .nav-container {
+            background: #6082B6;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            padding: 0 1rem;
+        }
+
+        .nav-left {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 1rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid white;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background: white;
+            color: black;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 100px;
+            padding: 20px;
+        }
+
+        h2 {
+            margin-top: 1rem;
+            font-size: 2rem; 
+            color: #2F539B; 
+        }
+
+        canvas {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-container">
+        <div class="nav-left">Boat Paradise</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutus.html">About US</a></li>
+                <li><a href="crud.html">Manage Sales</a></li>
+                <li><a href="analytics.html">Analysis</a></li>
+            </ul>
+        </nav>
+    </div>
+    <main>
+        <h2>Sales Analysis</h2>
+        <canvas id="boatDaysChart"></canvas>
+        <canvas id="boatSalesChart"></canvas>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const boats = [
+                { boatType: 'Yacht', boatPrice: 10000, boatDays: 30 },
+                { boatType: 'Cabin Cruisers', boatPrice: 16000, boatDays: 20 },
+                { boatType: 'Pontoon Boat', boatPrice: 4000, boatDays: 25 },
+                { boatType: 'Yacht', boatPrice: 12000, boatDays: 35 },
+                { boatType: 'Cabin Cruisers', boatPrice: 1700, boatDays: 22 },
+                { boatType: 'Pontoon Boat', boatPrice: 5000, boatDays: 28 }
+            ];
+
+            const boatTypes = ['Yacht', 'Cabin Cruisers', 'Pontoon Boat'];
+
+            const totalDays = boatTypes.map(type => {
+                return boats
+                    .filter(boat => boat.boatType === type)
+                    .reduce((sum, boat) => sum + parseFloat(boat.boatDays), 0);
+            });
+
+            const totalSales = boatTypes.map(type => {
+                return boats
+                    .filter(boat => boat.boatType === type)
+                    .reduce((sum, boat) => sum + parseFloat(boat.boatPrice), 0);
+            });
+
+            const ctxDays = document.getElementById('boatDaysChart').getContext('2d');
+            const ctxSales = document.getElementById('boatSalesChart').getContext('2d');
+
+            new Chart(ctxDays, {
+                type: 'bar',
+                data: {
+                    labels: boatTypes,
+                    datasets: [{
+                        label: 'Total Number of Days',
+                        data: totalDays,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Total Number of Days'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Boat Type'
+                            }
+                        }
+                    }
+                }
+            });
+
+            new Chart(ctxSales, {
+                type: 'bar',
+                data: {
+                    labels: boatTypes,
+                    datasets: [{
+                        label: 'Total Sales Amount',
+                        data: totalSales,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Total Sales Amount'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Boat Type'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
